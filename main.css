@@ -1,21 +1,60 @@
+
+body {
+     background-color: #f6f6f6; 
+}
+
+#greeting {
+     
+}
+
+
 @media screen and (max-width: 500px){
      /* MOBILE DESIGN HERE */
+     * {
+          border: 1px solid gold;
+     }
+
      body {
-          background-color: blue;
+          background-color: #f6f6f6;
      }
 
      #greeting {
-          color: white;
-     }
-}
-
-@media screen and (min-width: 501px){
-     body {
-          /* background-color: #f6f6f6; */
-          background-color: black;
+          text-align: center;
+          margin-top: 15px;
+          margin-bottom: 5px;
      }
 
-     #greeting {
-          color: white;
+     #fact {
+          padding: 0 20%;
+          font-style: italic;
+          
      }
+
+     header p {
+          text-align: center;
+          margin-top: 0;
+          margin-bottom: 3px;
+     }
+     
+     .top-info-container {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: space-between;
+     }
+
+     .content-container {
+          margin: 5px auto 5px auto;
+          width: 90%;
+          height: 68vh;
+          background-color: aquamarine;
+     }
+
+     footer {
+          background-color: rgb(41, 41, 41);
+          height: 50px;
+     }
+
+
 }
+
