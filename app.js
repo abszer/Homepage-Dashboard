@@ -45,6 +45,9 @@ const getWeather = () => {
      }).then(
           (data) => {
                console.log(data);
+
+               //Update weather icon depending on the weather id and icon set
+
                $('#current-weather').text(data.current.weather[0].description + " ");
                $('#temp').html(((data.current.temp - 275.13) * 9 /5 + 32).toFixed(0) + " &#176;F");
           },
@@ -81,7 +84,7 @@ const setGreeting = (name) => {
 
 $(() => {
      /// Initialize site ///
-     // getRandomFact();
+     getRandomFact();
      $('#date').text(date)
      // getGnews();
      getWeather();
