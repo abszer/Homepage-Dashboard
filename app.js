@@ -1,6 +1,14 @@
 const gnewsApiKey = '1125705369e213547a96e9ccb952b48b';
 const oWeathApiKey = '7c492c22cc3454f7043ae06d28366107';
 const giphyApiKey = '2MBKmGpnmFqQmKOJBE7Pn3pPSqGwaKla';
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',]
+let name;
+let city;
+let d = new Date();
+let date = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}`;
+
+
 // api.openweathermap.org/data/2.5/weather?q=boerne&appid=7c492c22cc3454f7043ae06d28366107 // example with name of town
 
 const getGnews = () => {
@@ -22,10 +30,10 @@ const getRandomFact = () => {
           url: `https://asli-fun-fact-api.herokuapp.com/`
      }).then(
           (data) => {
-               console.log(data);
+               $('#fact').text(data.data.fact);
           },
           () => {
-               console.log('bad request');
+               return 'something went wrong :(';
           }
      )
 }
@@ -38,7 +46,7 @@ const getWeather = () => {
                console.log(data);
           },
           () => {
-               console.log('bad request');
+               console.log('bad request');;
           }
      )
 }
@@ -56,9 +64,15 @@ const getGiphy = () => {
      )
 }
 
+
 $(() => {
+     /// Initialize site ///
+     getRandomFact();
+     $('#date').text(date)
      // getGnews();
-     // getRandomFact();
      // getWeather();
      // getGiphy();
+     $('#modal-submit').on('click', () => {
+          
+     })
 })

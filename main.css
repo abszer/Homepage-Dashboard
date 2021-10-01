@@ -20,12 +20,14 @@ body {
 
      #greeting {
           text-align: center;
+          font-family: Arial, Helvetica, sans-serif;
           margin-top: 15px;
           margin-bottom: 5px;
      }
 
      #fact {
           padding: 0 20%;
+          font-size: small;
           font-style: italic;
           
      }
@@ -46,13 +48,67 @@ body {
      .content-container {
           margin: 5px auto 5px auto;
           width: 90%;
-          height: 70vh;
+          height: 69vh;
           background-color: aquamarine;
      }
 
      footer {
+          display: flex;
+          justify-content: space-between;
           background-color: rgb(41, 41, 41);
           height: 50px;
+     }
+
+     .arrows {
+          filter: invert(41%) sepia(96%) saturate(1073%) hue-rotate(162deg) brightness(95%) contrast(101%);
+          height: 100%;
+          width: 10vw;
+          margin: 0 15px;
+
+     }
+
+     .modal {
+          
+          position: fixed;         /*lines 71-73 make the modal take up the whole page */
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.8);
+          z-index: 1;
+     }
+
+     .modal-content {
+          background: #f6f6f6;
+          height: 200px;
+          width: 300px;
+          margin: 55% auto;
+          border-radius: 10px;
+
+     }
+
+     .modal-content h2{
+          margin-bottom: 0px;
+     }
+
+     .modal-content h4{
+          margin: 10px 0;
+     }
+
+     #name-textbox, #city-textbox {
+          display: block;
+          width: 80%;
+          margin: 5px auto;
+          border-radius: 5px;
+          padding: 2px;
+     }
+
+     #modal-submit {
+          display: block;
+          margin: 10px auto;
+          font-size: 1em;
+          padding: 5px;
+          border-radius: 5px;
      }
 
 

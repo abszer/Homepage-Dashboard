@@ -12,21 +12,35 @@
 </head>
 <body>
      <header>
-          <h1 id="greeting">Good afternoon, Marzipan the third!</h1>
-          <p id="fact">The Discovery has flown the most missions compared to all other orbiters.</p>
+          <h1 id="greeting">Welcome!</h1>
+          <p id="fact"></p>
           <div class="top-info-container">
                <p>weather</p>
-               <p>Friday, Oct 1</p>
+               <p id="date"></p>
           </div>
            
      </header>
 
-     <div class="content-container"></div>
+     <div class="modal">
+          <div class="modal-content">
+               <h2>Hey!</h2>
+               <h4>Before we get started, what's your name and where are you located (city) ?</h4>
+               <input type="text" placeholder="first name" value="" id="name-textbox">
+               <input type="text" placeholder="city" value="" id="city-textbox">
+               <button id="modal-submit">Let's go!</button>
+
+          </div>
+     </div>
+
+     <div class="content-container">
+
+     </div>
 
      <!-- <iframe src="https://giphy.com/embed/qg5pk8s2h5kJy" width="480" height="298" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/ryan-gosling-qg5pk8s2h5kJy">via GIPHY</a></p> -->
      <footer>
           <!-- will have to make this fixed -->
-
+          <img src="imgs/left-arrow.svg" class="arrows" id="left-arrow">
+          <img src="imgs/right-arrow.svg" class="arrows" id="right-arrow">
      </footer>
 </body>
 </html>
