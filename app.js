@@ -3,8 +3,9 @@ const oWeathApiKey = '7c492c22cc3454f7043ae06d28366107';
 const giphyApiKey = '2MBKmGpnmFqQmKOJBE7Pn3pPSqGwaKla';
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',]
-let name;
-let city;
+
+let firstname = "";
+let city = "";
 let d = new Date();
 let date = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}`;
 
@@ -64,6 +65,17 @@ const getGiphy = () => {
      )
 }
 
+const setGreeting = (name) => {
+     let n = new Date();
+     let hour = n.getHours();
+
+     if(hour < 12){
+          $('#greeting').text(`Good morning, ${name}`);
+     } else {
+          $('#greeting').text(`Good afternoon, ${name}`);
+     }
+}
+
 
 $(() => {
      /// Initialize site ///
@@ -73,6 +85,11 @@ $(() => {
      // getWeather();
      // getGiphy();
      $('#modal-submit').on('click', () => {
-          
+          firstname = $('#name-textbox').val();          //implement localstorage here
+          city = $('#city-textbox').val();
+          $('.modal').css('display', 'none');
+          console.log(city);
+          console.log(firstname);
+          setGreeting(firstname);
      })
 })
