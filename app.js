@@ -45,9 +45,11 @@ const getWeather = () => {
      }).then(
           (data) => {
                console.log(data);
+               $('#current-weather').text(data.current.weather[0].description + " ");
+               $('#temp').html(((data.current.temp - 275.13) * 9 /5 + 32).toFixed(0) + " &#176;F");
           },
           () => {
-               console.log('bad request');;
+               console.log('bad request');
           }
      )
 }
@@ -70,26 +72,25 @@ const setGreeting = (name) => {
      let hour = n.getHours();
 
      if(hour < 12){
-          $('#greeting').text(`Good morning, ${name}`);
+          $('#greeting').text(`Good morning, ${name}!`);
      } else {
-          $('#greeting').text(`Good afternoon, ${name}`);
+          $('#greeting').text(`Good afternoon, ${name}!`);
      }
 }
 
 
 $(() => {
      /// Initialize site ///
-     getRandomFact();
+     // getRandomFact();
      $('#date').text(date)
      // getGnews();
-     // getWeather();
+     getWeather();
      // getGiphy();
      $('#modal-submit').on('click', () => {
           firstname = $('#name-textbox').val();          //implement localstorage here
           city = $('#city-textbox').val();
           $('.modal').css('display', 'none');
-          console.log(city);
-          console.log(firstname);
+
           setGreeting(firstname);
      })
 })

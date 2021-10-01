@@ -13,18 +13,19 @@
 <body>
      <header>
           <h1 id="greeting">Welcome!</h1>
-          <p id="fact"></p>
+          <p id="fact">placeholder</p>
           <div class="top-info-container">
-               <p>weather</p>
+               <div class="weather">
+                    <p id="weather-status"><img id="weather-icon"src="imgs/static-weather/day.svg"><span id="current-weather"></span><span id="temp">temp F</span></p>
+               </div>
                <p id="date"></p>
           </div>
-           
      </header>
 
      <div class="modal">
           <div class="modal-content">
                <h2>Hey!</h2>
-               <h4>Before we get started, what's your name and where are you located (city) ?</h4>
+               <h4>Before we get started, what's your name and where are you located?</h4>
                <input type="text" placeholder="first name" value="" id="name-textbox">
                <input type="text" placeholder="city" value="" id="city-textbox">
                <button id="modal-submit">Let's go!</button>
