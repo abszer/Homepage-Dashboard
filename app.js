@@ -168,22 +168,41 @@ const getCurrentWeather = (cityName) => {
      )
 }
 
-const getGiphy = () => {
+// const getGiphy = () => {
+//      $.ajax({
+//           url: `http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=${giphyApiKey}&limit=5` // note the plus needed to join spaced words
+//      }).then(
+//           (data) => {
+//                console.log('current weather data: ');
+//                console.log(data);
+//           },
+//           () => {
+//                console.log('bad request');
+//           }
+//      )
+// }
+
+const getStonks = (ticker) => {
      $.ajax({
-          url: `http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=${giphyApiKey}&limit=5` // note the plus needed to join spaced words
+          url: `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${avApiKey}`
      }).then(
           (data) => {
-               console.log('current weather data: ');
-               console.log(data);
+               dateKeys = Object.keys(data['Time Series (Daily)']); // array of keys used to access the date of stock info  Ex: data['Time Series (Daily)'][dateKeys[0]] accesses today's data
+
+               console.log(data['Time Series (Daily)'][dateKeys[0]]);
           },
           () => {
-               console.log('bad request');
+               console.log('bad av api request');
           }
      )
 }
 
-const getStonks = () => {
-     $.ajax()
+const loadStonksPage = () => {
+     
+}
+
+const loadWeatherPage = () => {
+     
 }
 
 const setGreeting = (name) => {
@@ -223,6 +242,7 @@ $(() => {
      $('#right-arrow').on('click', () => {
           $('.content-container').empty();
           $('.content-container').append('<h3>').text('right page');
+          getStonks('goog');
 
      })
 
