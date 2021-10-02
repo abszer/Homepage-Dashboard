@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap');
+
 
 body {
      background-color: #f6f6f6; 
@@ -20,7 +22,7 @@ body {
 
      #greeting {
           text-align: center;
-          font-family: Arial, Helvetica, sans-serif;
+          font-family: 'Manrope', sans-serif;
           margin-top: 15px;
           margin-bottom: 5px;
      }
@@ -54,6 +56,8 @@ body {
      #date {
           display: inline-block;
           text-align: center;
+          font-family: 'Manrope', sans-serif;
+          font-weight: 300;
           position: absolute;
           bottom: 29%;
           right: 2vw;
@@ -62,6 +66,8 @@ body {
 
      .weather {
           display: flex;
+          font-family: 'Manrope', sans-serif;
+          font-weight: 200;
      }
 
      #weather-icon {
@@ -77,9 +83,13 @@ body {
           margin: 5px auto 5px auto;
           width: 100%;
           height: 69vh;
-          /* background-color: aquamarine; */
+          background-color: #fdfdfd;
           overflow-y: auto;
      }
+
+     .content-container::-webkit-scrollbar {
+          display: none; 
+      }
 
      .news-content {           /* rename to ".content show" */
           display: flex;
@@ -96,8 +106,9 @@ body {
           margin-top: 8%;
           margin-left: 5px;
           margin-bottom: 8%;
-          padding-right: 8px;
-          border-right: 1px solid rgb(214, 214, 214);
+          margin-right: 8px;
+          border-radius: 7px;
+          /* border-right: 1px solid rgb(214, 214, 214); */
      }
 
      .news-content a {
@@ -107,6 +118,7 @@ body {
 
      .news-info-container {
           padding: 0 8px;
+          border-left: 1px solid rgb(214, 214, 214);
      }
 
      .news-info-container h4{
@@ -116,22 +128,29 @@ body {
      }
      
      .news-info-container p{
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: .85em;
           margin: 0;
      }
 
      footer {
           display: flex;
           justify-content: space-between;
-          background-color: rgb(41, 41, 41);
+          background-color: rgb(66, 66, 66);
           height: 50px;
      }
 
      .arrows {
-          filter: invert(41%) sepia(96%) saturate(1073%) hue-rotate(162deg) brightness(95%) contrast(101%);
+          filter: invert(73%) sepia(80%) saturate(1179%) hue-rotate(181deg) brightness(101%) contrast(94%);
           height: 100%;
-          width: 10vw;
+          width: 7vw;
           margin: 0 15px;
 
+     }
+
+     .arrows:hover {
+          cursor: pointer;
+          filter: invert(73%) sepia(80%) saturate(1179%) hue-rotate(181deg) brightness(70%) contrast(94%);
      }
 
      .modal {
@@ -153,12 +172,15 @@ body {
 
      }
 
-     .modal-content h2{
+     /* .modal-content h2{
           margin-bottom: 0px;
-     }
+     } */
 
      .modal-content h4{
-          margin: 10px 0;
+          font-family: 'Manrope', sans-serif;
+          font-weight: 400;
+          margin: 5px 5px;
+          padding: 12px;
      }
 
      #name-textbox, #city-textbox {
@@ -173,8 +195,15 @@ body {
           display: block;
           margin: 10px auto;
           font-size: 1em;
-          padding: 5px;
+          padding: 10px;
           border-radius: 5px;
+          border: none;
+          background-color: #8abff7;
+          color: rgb(248, 248, 248);
+     }
+     #modal-submit:hover {
+          background-color: #73a0d1;
+          cursor: pointer;
      }
 
 

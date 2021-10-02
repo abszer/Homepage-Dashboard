@@ -21,12 +21,13 @@ const getGnews = (city, articles="10") => {
           (data) => {
                
                     console.log(data);
+                    $('.content-container').empty();
                     if(data.articles.length > 0){
 
                          for(let i = 0; i < parseInt(articles); i++){
 
                               const title = data.articles[i].title;
-                              const description = data.articles[i].description;
+                              const description = data.articles[i].description.slice(0, 75) + "...";
                               const url = data.articles[i].url;
                               const image = data.articles[i].image;
 
@@ -202,7 +203,9 @@ const setGreeting = (name) => {
 
 $(() => {
      /// Initialize site ///
-     getRandomFact();
+     
+     getRandomFact();    // turned off for now so I don't get blocked by the API
+      
      $('#date').text(date)
      
      // getWeather();
@@ -217,4 +220,6 @@ $(() => {
           city !== "" ? getCurrentWeather(city) : getCurrentWeather("New York");           // gets weather data for city from input text box
           city !== "" ? getGnews(city) : getGnews("US");
      })
+
+
 })
