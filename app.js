@@ -16,12 +16,51 @@ let date = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}`;
 
 const getGnews = (city, articles="10") => {
      $.ajax({
-          url: `https://gnews.io/api/v4/search?q=${city}&max=${articles}&token=${gnewsApiKey}`
+          url: `https://gnews.io/api/v4/search?q=${city}&max=${articles}&lang=en&token=${gnewsApiKey}`
      }).then(
           (data) => {
-               // for(let i = 0; i < parseInt(articles); i++){
-               //      const $newsContentDiv = $('<div>') 
-               // }
+               
+                    console.log(data);
+                    if(data.articles.length > 0){
+
+                         for(let i = 0; i < parseInt(articles); i++){
+
+                              const title = data.articles[i].title;
+                              const description = data.articles[i].description;
+                              const url = data.articles[i].url;
+                              const image = data.articles[i].image;
+
+                              console.log("grabbed news info: ");
+                              console.log(title);
+                              console.log(description);
+                              console.log(url);
+                              console.log(image);
+
+                              const $newsContentDiv = $('<div>').addClass('news-content');
+                              const $newsInfoDiv = $('<div>').addClass('news-info-container');
+                              const $title = $('<h4>').text(title);
+                              const $desc = $('<p>').text(description);
+                              const $topA = $('<a>').attr('href', url);
+                              const $botA = $('<a>').attr('href', url);
+                              const $img = $('<img>').attr('src', image);
+
+                              $('.content-container').append($newsContentDiv);
+                              $newsContentDiv.append($topA);
+                              $newsContentDiv.append($botA);
+                              $topA.append($img);
+                              $botA.append($newsInfoDiv);
+                              $newsInfoDiv.append($title);
+                              $newsInfoDiv.append($desc);
+
+                         }
+
+                    } else {
+
+                         const $sorry = $('<h3>').text("Sorry, no news articles available for your area at the moment");
+                         
+                         $('.content-container').append($sorry);
+                    }
+
           },
           () => {
                console.log('bad request')    
@@ -176,6 +215,6 @@ $(() => {
 
           setGreeting(firstname);              // sets top welcome message
           city !== "" ? getCurrentWeather(city) : getCurrentWeather("New York");           // gets weather data for city from input text box
-          //city !== "" ? getGnews(city) : getGnews("US");
+          city !== "" ? getGnews(city) : getGnews("US");
      })
 })
