@@ -3,6 +3,8 @@ const oWeathApiKey = '7c492c22cc3454f7043ae06d28366107';
 const giphyApiKey = '2MBKmGpnmFqQmKOJBE7Pn3pPSqGwaKla';
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',]
+const weatherIcons = ['thunder.svg', 'rainy-4.svg', 'rainy-7.svg', 'snowy-6.svg', 'alert.svg', 'day.svg', 'night.svg', 'cloudy-day-2.svg', 'cloudy-night-2.svg' ]
+
 
 let firstname = "";
 let city = "";
@@ -39,6 +41,7 @@ const getRandomFact = () => {
      )
 }
 
+// for 5 day forecast
 const getWeather = () => {
      $.ajax({
           url: `https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&appid=${oWeathApiKey}`
@@ -48,11 +51,85 @@ const getWeather = () => {
 
                //Update weather icon depending on the weather id and icon set
 
-               $('#current-weather').text(data.current.weather[0].description + " ");
+               // $('#current-weather').text(data.current.weather[0].description + " ");
                $('#temp').html(((data.current.temp - 275.13) * 9 /5 + 32).toFixed(0) + " &#176;F");
           },
           () => {
                console.log('bad request');
+          }
+     )
+}
+
+// for header data
+const getCurrentWeather = (cityName) => {
+     $.ajax({
+          url: `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${oWeathApiKey}`
+     }).then(
+          (data) => {
+               console.log(data);
+
+               const weatherID = data.weather[0].id;
+               let n = new Date();
+               let hours = n.getHours();
+
+               // update temp in header
+               $('#temp').html(((data.main.temp - 275.13) * 9 /5 + 32).toFixed(0) + " &#176;F"); 
+               
+
+               //set weather icon according to ID
+               if(weatherID >= 200  && weatherID <= 232){   
+                    
+                    // thunder
+                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[0]}`)
+
+               } else if(weatherID >= 300 && weatherID <= 321){ 
+                    
+                    // rainy
+                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[1]}`)
+
+               } else if(weatherID >= 500 && weatherID <= 531){ 
+                    
+                    // heavy rain
+                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[2]}`)
+
+               } else if(weatherID >= 600 && weatherID <= 622){ 
+                    
+                    // snowy
+                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[3]}`)
+
+               } else if(weatherID >= 701 && weatherID <= 781){ 
+                    
+                    // alert
+                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[4]}`)
+
+               } else if( weatherID === 800 && (hours > 6 && hours < 20) ){ 
+                    
+                    // clear day
+                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[5]}`)
+
+               } else if(weatherID === 800 && (hours < 6 || hours >= 20) ){ 
+                    
+                    // clear night
+                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[6]}`)
+
+               } else if( ( weatherID >= 801 && weatherID <= 804 ) && (hours > 6 && hours < 20) ){ 
+                    
+                    // cloudy day
+                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[7]}`)
+
+               } else if( ( weatherID >= 801 && weatherID <= 804 ) && (hours < 6 || hours >= 20)){ 
+                    
+                    // cloudy night
+                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[8]}`)
+
+               } else {
+                    // alert svg  == error
+                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[4]}`)
+               }
+               
+          },
+          () => {
+               console.log('bad request from getCurrentWeather');
           }
      )
 }
@@ -62,6 +139,7 @@ const getGiphy = () => {
           url: `http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=${giphyApiKey}&limit=5` // note the plus needed to join spaced words
      }).then(
           (data) => {
+               console.log('current weather data: ');
                console.log(data);
           },
           () => {
@@ -87,13 +165,15 @@ $(() => {
      getRandomFact();
      $('#date').text(date)
      // getGnews();
-     getWeather();
+     // getWeather();
      // getGiphy();
+
      $('#modal-submit').on('click', () => {
           firstname = $('#name-textbox').val();          //implement localstorage here
           city = $('#city-textbox').val();
           $('.modal').css('display', 'none');
 
-          setGreeting(firstname);
+          setGreeting(firstname);              // sets top welcome message
+          city !== "" ? getCurrentWeather(city) : getCurrentWeather("New York");           // gets weather data for city from input text box
      })
 })
