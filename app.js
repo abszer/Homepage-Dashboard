@@ -14,12 +14,14 @@ let date = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}`;
 
 // api.openweathermap.org/data/2.5/weather?q=boerne&appid=7c492c22cc3454f7043ae06d28366107 // example with name of town
 
-const getGnews = () => {
+const getGnews = (city, articles="10") => {
      $.ajax({
-          url: `https://gnews.io/api/v4/search?q=example&token=${gnewsApiKey}`
+          url: `https://gnews.io/api/v4/search?q=${city}&max=${articles}&token=${gnewsApiKey}`
      }).then(
           (data) => {
-               console.log(data)
+               // for(let i = 0; i < parseInt(articles); i++){
+               //      const $newsContentDiv = $('<div>') 
+               // }
           },
           () => {
                console.log('bad request')    
@@ -66,7 +68,6 @@ const getCurrentWeather = (cityName) => {
           url: `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${oWeathApiKey}`
      }).then(
           (data) => {
-               console.log(data);
 
                const weatherID = data.weather[0].id;
                let n = new Date();
@@ -164,7 +165,7 @@ $(() => {
      /// Initialize site ///
      getRandomFact();
      $('#date').text(date)
-     // getGnews();
+     
      // getWeather();
      // getGiphy();
 
@@ -175,5 +176,6 @@ $(() => {
 
           setGreeting(firstname);              // sets top welcome message
           city !== "" ? getCurrentWeather(city) : getCurrentWeather("New York");           // gets weather data for city from input text box
+          //city !== "" ? getGnews(city) : getGnews("US");
      })
 })
