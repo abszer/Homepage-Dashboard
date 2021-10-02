@@ -1,18 +1,15 @@
 const gnewsApiKey = '1125705369e213547a96e9ccb952b48b';
 const oWeathApiKey = '7c492c22cc3454f7043ae06d28366107';
-const giphyApiKey = '2MBKmGpnmFqQmKOJBE7Pn3pPSqGwaKla';
+const avApiKey = "UCYV9F7X96A1UXRT";
+// const giphyApiKey = '2MBKmGpnmFqQmKOJBE7Pn3pPSqGwaKla';
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',]
 const weatherIcons = ['thunder.svg', 'rainy-4.svg', 'rainy-7.svg', 'snowy-6.svg', 'alert.svg', 'day.svg', 'night.svg', 'cloudy-day-2.svg', 'cloudy-night-2.svg' ]
-
 
 let firstname = "";
 let city = "";
 let d = new Date();
 let date = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}`;
-
-
-// api.openweathermap.org/data/2.5/weather?q=boerne&appid=7c492c22cc3454f7043ae06d28366107 // example with name of town
 
 const getGnews = (city, articles="10") => {
      $.ajax({
@@ -30,12 +27,6 @@ const getGnews = (city, articles="10") => {
                               const description = data.articles[i].description.slice(0, 75) + "...";
                               const url = data.articles[i].url;
                               const image = data.articles[i].image;
-
-                              console.log("grabbed news info: ");
-                              console.log(title);
-                              console.log(description);
-                              console.log(url);
-                              console.log(image);
 
                               const $newsContentDiv = $('<div>').addClass('news-content');
                               const $newsInfoDiv = $('<div>').addClass('news-info-container');
@@ -109,12 +100,14 @@ const getCurrentWeather = (cityName) => {
      }).then(
           (data) => {
 
+               // console.log(data);
+
                const weatherID = data.weather[0].id;
                let n = new Date();
                let hours = n.getHours();
 
                // update temp in header
-               $('#temp').html(((data.main.temp - 275.13) * 9 /5 + 32).toFixed(0) + " &#176;F"); 
+               $('#temp').html(((data.main.temp - 273.15) * 9 /5 + 32).toFixed(0) + " &#176;F"); 
                
 
                //set weather icon according to ID
@@ -189,6 +182,10 @@ const getGiphy = () => {
      )
 }
 
+const getStonks = () => {
+     $.ajax()
+}
+
 const setGreeting = (name) => {
      let n = new Date();
      let hour = n.getHours();
@@ -200,6 +197,8 @@ const setGreeting = (name) => {
      }
 }
 
+const apiCalls = [getWeather, getGnews, getStonks];
+
 
 $(() => {
      /// Initialize site ///
@@ -208,7 +207,7 @@ $(() => {
       
      $('#date').text(date)
      
-     // getWeather();
+     // getWeather(); apiCalls[1]
      // getGiphy();
 
      $('#modal-submit').on('click', () => {
@@ -218,7 +217,18 @@ $(() => {
 
           setGreeting(firstname);              // sets top welcome message
           city !== "" ? getCurrentWeather(city) : getCurrentWeather("New York");           // gets weather data for city from input text box
-          city !== "" ? getGnews(city) : getGnews("US");
+          city !== "" ? apiCalls[1](city) : apiCalls[1]("US");
+     })
+
+     $('#right-arrow').on('click', () => {
+          $('.content-container').empty();
+          $('.content-container').append('<h3>').text('right page');
+
+     })
+
+     $('#left-arrow').on('click', () => {
+          $('.content-container').empty();
+          $('.content-container').append('<h3>').text('left page');
      })
 
 
