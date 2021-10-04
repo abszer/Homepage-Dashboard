@@ -198,11 +198,14 @@ const getStonks = (ticker) => {
 }
 
 const loadStonksPage = () => {
-     
+     // getStonks(ticker)
+     $('.content-container').empty();
+     $('.content-container').append('<h3>').text('stonks page');
 }
 
 const loadWeatherPage = () => {
-     
+     $('.content-container').empty();
+     $('.content-container').append('<h3>').text('weather page');
 }
 
 const setGreeting = (name) => {
@@ -216,8 +219,8 @@ const setGreeting = (name) => {
      }
 }
 
-const apiCalls = [getWeather, getGnews, getStonks];
-
+const apiCalls = [loadWeatherPage, getGnews, loadStonksPage]; // carousel pages
+let currCarouselPage = 1;
 
 $(() => {
      /// Initialize site ///
@@ -240,15 +243,21 @@ $(() => {
      })
 
      $('#right-arrow').on('click', () => {
-          $('.content-container').empty();
-          $('.content-container').append('<h3>').text('right page');
-          getStonks('goog');
-
+          if(currCarouselPage < apiCalls.length){
+               currCarouselPage++
+               apiCalls[currCarouselPage]();
+          }else{
+               // make jiggle animation that symbolizes the end of the carousel
+          }
      })
 
      $('#left-arrow').on('click', () => {
-          $('.content-container').empty();
-          $('.content-container').append('<h3>').text('left page');
+          if(currCarouselPage > -1){
+               currCarouselPage--
+               apiCalls[currCarouselPage]();
+          }else{
+               // make jiggle animation that symbolizes the end of the carousel
+          }
      })
 
 

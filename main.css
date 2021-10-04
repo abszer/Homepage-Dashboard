@@ -69,6 +69,21 @@ header p {
      vertical-align: middle;
 }
 
+.search {
+     display: flex;
+     justify-content: center;
+     margin: 5px auto 2px auto;
+     width: 100vh;       /*change to match desktop content container width */
+}
+
+#search-bar {
+     flex-grow: 8;
+}
+
+#search-btn {
+     flex-grow: 1;
+}
+
 .content-container {
      display: flex;
      flex-direction: column;     
@@ -183,7 +198,7 @@ header p {
 }
 
 
-/* -------------not visible in desktop version------------- */
+/* ---------not visible in desktop version------- */
 
 footer {
      display: none;
@@ -208,7 +223,7 @@ footer {
 }
 
 
-/* -----------------------end desktop design--------------------- */
+/* ---------------------------end desktop design---------------------------- */
 
 @media screen and (max-width: 500px){
      /* MOBILE DESIGN HERE */
@@ -280,6 +295,21 @@ footer {
           vertical-align: middle;
      }
 
+     .search {
+          display: flex;
+          justify-content: center;
+          margin: 5px auto 2px auto;
+          width: 100%;       /*change to match desktop content container width */
+     }
+     
+     #search-bar {
+          flex-grow: 8;
+     }
+     
+     #search-btn {
+          flex-grow: 1;
+     }
+
      .content-container {
           display: flex;
           flex-direction: column;     
@@ -296,6 +326,10 @@ footer {
      .content-container::-webkit-scrollbar {
           display: none; 
       }
+
+
+
+     /*---------- news info page ----------*/
 
      .news-content {           /* rename to ".content show" */
           display: flex;
@@ -316,6 +350,7 @@ footer {
           border-radius: 7px;
           /* border-right: 1px solid rgb(214, 214, 214); */
      }
+
 
      .news-content a {
           text-decoration: none;
@@ -338,6 +373,41 @@ footer {
           font-size: .85em;
           margin: 0;
      }
+
+     /*---------- news info page ----------*/
+
+
+
+     /*---------- stock info page ----------*/
+
+     .stock-info-container {
+          display: flex;
+          padding: 2% 0;
+          border-bottom: 1px solid rgb(214, 214, 214);
+     }
+
+     .ticker {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 33%;
+
+          font-family: Arial, Helvetica, sans-serif;
+     }
+
+     .stock-info {
+          padding-left: 5%;
+          border-left: 1px solid rgb(214, 214, 214);
+
+          font-family: Arial, Helvetica, sans-serif;
+     }
+
+     .stock-info h5 {
+          margin: 10% 0;
+     }
+
+     /*---------- stock info page ----------*/
+
 
      footer {
           display: flex;
@@ -362,6 +432,7 @@ footer {
      }
 
      .modal {
+          display: none;
           position: fixed;         /*lines 71-73 make the modal take up the whole page */
           top: 0;
           left: 0;
@@ -379,10 +450,6 @@ footer {
           border-radius: 10px;
 
      }
-
-     /* .modal-content h2{
-          margin-bottom: 0px;
-     } */
 
      .modal-content h4{
           font-family: 'Manrope', sans-serif;
