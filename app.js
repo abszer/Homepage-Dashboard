@@ -17,7 +17,6 @@ const getGnews = (city, articles="10") => {
      }).then(
           (data) => {
                
-                    console.log(data);
                     $('.content-container').empty();
                     if(data.articles.length > 0){
 
@@ -75,11 +74,11 @@ const getRandomFact = () => {
 }
 
 // for 5 day forecast
-const getWeather = () => {
+const getFiveDayWeather = (location) => {
      $('.content-container').empty();
 
      $.ajax({
-          url: `https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&appid=${oWeathApiKey}`
+          url: `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${oWeathApiKey}`
      }).then(
           (data) => {
                console.log(data);
@@ -87,7 +86,7 @@ const getWeather = () => {
                //Update weather icon depending on the weather id and icon set
 
                // $('#current-weather').text(data.current.weather[0].description + " ");
-               $('#temp').html(((data.current.temp - 275.13) * 9 /5 + 32).toFixed(0) + " &#176;F");
+               // $('#temp').html(((data.current.temp - 275.13) * 9 /5 + 32).toFixed(0) + " &#176;F");
           },
           () => {
                console.log('bad request');
@@ -250,7 +249,7 @@ const setGreeting = (name) => {
 
 
 
-const apiCalls = [getWeather, getGnews, getStonks]; // carousel pages
+const apiCalls = [getFiveDayWeather, getGnews, getStonks]; // carousel pages
 let currCarouselPage = 1;
 
 $(() => {
@@ -271,7 +270,7 @@ $(() => {
           setGreeting(firstname);              // sets top welcome message
           city !== "" ? getCurrentWeather(city) : getCurrentWeather("New York");           // gets weather data for city from input text box
           
-          city !== "" ? apiCalls[1](city) : apiCalls[1]("US"); // old news api call
+          city !== "" ? apiCalls[1](city) : apiCalls[1]("US"); 
           
           
      })

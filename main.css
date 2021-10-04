@@ -327,6 +327,56 @@ footer {
           display: none; 
       }
 
+      /* --------- five day forecast page -------- */
+
+     .weather-info-container {
+           display: flex;
+           justify-content: space-between;
+           border-bottom: 1px solid rgb(214, 214, 214);
+           padding: 2% 0;
+           
+     }
+
+     .current-weather-icon {
+           display: flex; 
+           justify-content: center;
+           align-items: center;
+           margin: 0 5%;
+           padding-right: 5%;
+           border-right: 1px solid rgb(214, 214, 214);
+     }
+
+     .desc-box-left {
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           margin-left: -5%;
+     }
+
+     .desc-box-left h3 {
+          font-family: 'Manrope', sans-serif;
+          margin: 0;
+     }
+
+     .desc-box-left p {
+          display: inline-block;
+          font-family: 'Manrope', sans-serif;
+          font-size: .85em;
+          margin: 5px 0;
+
+     }
+
+     .desc-box-right {
+          display: flex;
+          flex-direction: column;
+          margin-right: 7%;
+     }
+
+     .desc-box-right p {
+          font-family: 'Manrope', sans-serif;
+          font-size: .85em;
+          margin-bottom: 0;
+     }
 
 
      /*---------- news info page ----------*/
@@ -432,6 +482,7 @@ footer {
      }
 
      .modal {
+          display: none;
           position: fixed;         /*lines 71-73 make the modal take up the whole page */
           top: 0;
           left: 0;
