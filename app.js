@@ -76,6 +76,8 @@ const getRandomFact = () => {
 
 // for 5 day forecast
 const getWeather = () => {
+     $('.content-container').empty();
+
      $.ajax({
           url: `https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&appid=${oWeathApiKey}`
      }).then(
@@ -181,32 +183,59 @@ const getCurrentWeather = (cityName) => {
 //           }
 //      )
 // }
-
-const getStonks = (ticker) => {
-     $.ajax({
-          url: `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${avApiKey}`
-     }).then(
-          (data) => {
-               dateKeys = Object.keys(data['Time Series (Daily)']); // array of keys used to access the date of stock info  Ex: data['Time Series (Daily)'][dateKeys[0]] accesses today's data
-
-               console.log(data['Time Series (Daily)'][dateKeys[0]]);
-          },
-          () => {
-               console.log('bad av api request');
-          }
-     )
-}
-
-const loadStonksPage = () => {
-     // getStonks(ticker)
+const tickers = ["GOOG", "AAPL", "AMZN", "TSLA"]
+const getStonks = () => {
      $('.content-container').empty();
-     $('.content-container').append('<h3>').text('stonks page');
+     const dataArr = [];
+     for(const ticker of tickers){
+          $.ajax({
+               url: `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${avApiKey}`
+          }).then(
+               (data) => {
+     
+          
+                    dateKeys = Object.keys(data['Time Series (Daily)']); // array of keys used to access the date of stock info  Ex: data['Time Series (Daily)'][dateKeys[0]] accesses today's data
+                  
+                    dataArr.push(data['Time Series (Daily)'][dateKeys[1]]["4. close"])
+                    dataArr.push(data['Time Series (Daily)'][dateKeys[0]]["1. open"])
+                    dataArr.push(data['Time Series (Daily)'][dateKeys[0]]["3. low"])
+                    dataArr.push(data['Time Series (Daily)'][dateKeys[0]]["2. high"])
+                    
+                    const $stockInfoContainer = $('<div>').addClass('stock-info-container');
+                    const $tickerDiv = $('<div>').addClass('ticker');
+                    const $stockInfoDiv = $('<div>').addClass('stock-info');
+                    const $tickerSymbol = $('<h3>').attr('id', 'symbol').text(ticker)
+                    const $stockClose = $('<h5>').attr('id', 'stock-close').text(`Yesterday's Close: ${dataArr[0]}`);
+                    const $stockOpen = $('<h5>').attr('id', 'stock-open').text( `Today's Open: ${dataArr[1]}`)
+                    const $lowHigh = $('<h5>').attr('id', 'low-high').text(`Low: ${dataArr[2]} High: ${dataArr[3]}`);
+     
+                    $('.content-container').append($stockInfoContainer);
+                    $stockInfoContainer.append($tickerDiv);
+                    $tickerDiv.append($tickerSymbol);
+                    $stockInfoContainer.append($stockInfoDiv);
+                    $stockInfoDiv.append($stockClose);
+                    $stockInfoDiv.append($stockOpen);
+                    $stockInfoDiv.append($lowHigh);
+     
+                    if(dataArr[0] < dataArr[1]){
+                         $tickerSymbol.css('color', 'green');
+                    }else{
+                         $tickerSymbol.css('color', 'red');
+                    }
+     
+                    
+     
+     
+               },
+               () => {
+                    console.log('bad av api request');
+                    return null;
+               }
+          )
+     }
+     
 }
 
-const loadWeatherPage = () => {
-     $('.content-container').empty();
-     $('.content-container').append('<h3>').text('weather page');
-}
 
 const setGreeting = (name) => {
      let n = new Date();
@@ -219,7 +248,9 @@ const setGreeting = (name) => {
      }
 }
 
-const apiCalls = [loadWeatherPage, getGnews, loadStonksPage]; // carousel pages
+
+
+const apiCalls = [getWeather, getGnews, getStonks]; // carousel pages
 let currCarouselPage = 1;
 
 $(() => {
@@ -239,22 +270,25 @@ $(() => {
 
           setGreeting(firstname);              // sets top welcome message
           city !== "" ? getCurrentWeather(city) : getCurrentWeather("New York");           // gets weather data for city from input text box
-          city !== "" ? apiCalls[1](city) : apiCalls[1]("US");
+          
+          city !== "" ? apiCalls[1](city) : apiCalls[1]("US"); // old news api call
+          
+          
      })
 
      $('#right-arrow').on('click', () => {
-          if(currCarouselPage < apiCalls.length){
+          if(currCarouselPage + 1 < apiCalls.length){
                currCarouselPage++
-               apiCalls[currCarouselPage]();
+               apiCalls[currCarouselPage]("");
           }else{
                // make jiggle animation that symbolizes the end of the carousel
           }
      })
 
      $('#left-arrow').on('click', () => {
-          if(currCarouselPage > -1){
+          if(currCarouselPage - 1 > -1){
                currCarouselPage--
-               apiCalls[currCarouselPage]();
+               apiCalls[currCarouselPage](city);
           }else{
                // make jiggle animation that symbolizes the end of the carousel
           }
