@@ -482,7 +482,6 @@ footer {
      }
 
      .modal {
-          display: none;
           position: fixed;         /*lines 71-73 make the modal take up the whole page */
           top: 0;
           left: 0;

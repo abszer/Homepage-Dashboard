@@ -73,6 +73,63 @@ const getRandomFact = () => {
      )
 }
 
+const setWeatherIcon = (weatherID, hours) => {
+     
+
+     if(weatherID >= 200  && weatherID <= 232){   
+                    
+          // thunder
+          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[0]}`)
+
+     } else if(weatherID >= 300 && weatherID <= 321){ 
+          
+          // rainy
+          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[1]}`)
+
+     } else if(weatherID >= 500 && weatherID <= 531){ 
+          
+          // heavy rain
+          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[2]}`)
+
+     } else if(weatherID >= 600 && weatherID <= 622){ 
+          
+          // snowy
+          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[3]}`)
+
+     } else if(weatherID >= 701 && weatherID <= 781){ 
+          
+          // alert
+          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[4]}`)
+
+     } else if( weatherID === 800 && (hours > 6 && hours < 20) ){ 
+          
+          // clear day
+          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[5]}`)
+
+     } else if(weatherID === 800 && (hours < 6 || hours >= 20) ){ 
+          
+          // clear night
+          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[6]}`)
+
+     } else if( ( weatherID >= 801 && weatherID <= 804 ) && (hours > 6 && hours < 20) ){ 
+          
+          // cloudy day
+          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[7]}`)
+
+     } else if( ( weatherID >= 801 && weatherID <= 804 ) && (hours < 6 || hours >= 20)){ 
+          
+          // cloudy night
+          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[8]}`)
+
+     } else {
+          // alert svg  == error
+          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[4]}`)
+     }
+
+
+     
+}
+
 // for 5 day forecast
 const getFiveDayWeather = (location) => {
      $('.content-container').empty();
@@ -101,66 +158,17 @@ const getCurrentWeather = (cityName) => {
      }).then(
           (data) => {
 
-               // console.log(data);
-
-               const weatherID = data.weather[0].id;
+     
                let n = new Date();
                let hours = n.getHours();
+               const weatherID = data.weather[0].id;
 
                // update temp in header
                $('#temp').html(((data.main.temp - 273.15) * 9 /5 + 32).toFixed(0) + " &#176;F"); 
                
 
                //set weather icon according to ID
-               if(weatherID >= 200  && weatherID <= 232){   
-                    
-                    // thunder
-                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[0]}`)
-
-               } else if(weatherID >= 300 && weatherID <= 321){ 
-                    
-                    // rainy
-                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[1]}`)
-
-               } else if(weatherID >= 500 && weatherID <= 531){ 
-                    
-                    // heavy rain
-                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[2]}`)
-
-               } else if(weatherID >= 600 && weatherID <= 622){ 
-                    
-                    // snowy
-                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[3]}`)
-
-               } else if(weatherID >= 701 && weatherID <= 781){ 
-                    
-                    // alert
-                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[4]}`)
-
-               } else if( weatherID === 800 && (hours > 6 && hours < 20) ){ 
-                    
-                    // clear day
-                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[5]}`)
-
-               } else if(weatherID === 800 && (hours < 6 || hours >= 20) ){ 
-                    
-                    // clear night
-                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[6]}`)
-
-               } else if( ( weatherID >= 801 && weatherID <= 804 ) && (hours > 6 && hours < 20) ){ 
-                    
-                    // cloudy day
-                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[7]}`)
-
-               } else if( ( weatherID >= 801 && weatherID <= 804 ) && (hours < 6 || hours >= 20)){ 
-                    
-                    // cloudy night
-                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[8]}`)
-
-               } else {
-                    // alert svg  == error
-                    $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[4]}`)
-               }
+               setWeatherIcon(weatherID, hours);
                
           },
           () => {
