@@ -346,6 +346,11 @@ footer {
            border-right: 1px solid rgb(214, 214, 214);
      }
 
+     .five-day-icon {
+          height: 64px;
+          width: 64px;
+     }
+
      .desc-box-left {
            display: flex;
            flex-direction: column;

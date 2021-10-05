@@ -73,57 +73,57 @@ const getRandomFact = () => {
      )
 }
 
-const setWeatherIcon = (weatherID, hours) => {
+const setWeatherIcon = (weatherID, hours, id) => {
      
 
      if(weatherID >= 200  && weatherID <= 232){   
                     
           // thunder
-          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[0]}`)
+          $(id).attr('src', `imgs/static-weather/${weatherIcons[0]}`)
 
      } else if(weatherID >= 300 && weatherID <= 321){ 
           
           // rainy
-          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[1]}`)
+          $(id).attr('src', `imgs/static-weather/${weatherIcons[1]}`)
 
      } else if(weatherID >= 500 && weatherID <= 531){ 
           
           // heavy rain
-          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[2]}`)
+          $(id).attr('src', `imgs/static-weather/${weatherIcons[2]}`)
 
      } else if(weatherID >= 600 && weatherID <= 622){ 
           
           // snowy
-          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[3]}`)
+          $(id).attr('src', `imgs/static-weather/${weatherIcons[3]}`)
 
      } else if(weatherID >= 701 && weatherID <= 781){ 
           
           // alert
-          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[4]}`)
+          $(id).attr('src', `imgs/static-weather/${weatherIcons[4]}`)
 
-     } else if( weatherID === 800 && (hours > 6 && hours < 20) ){ 
+     } else if( weatherID === 800 && (hours >= 6 && hours < 20) ){ 
           
           // clear day
-          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[5]}`)
+          $(id).attr('src', `imgs/static-weather/${weatherIcons[5]}`)
 
      } else if(weatherID === 800 && (hours < 6 || hours >= 20) ){ 
           
           // clear night
-          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[6]}`)
+          $(id).attr('src', `imgs/static-weather/${weatherIcons[6]}`)
 
-     } else if( ( weatherID >= 801 && weatherID <= 804 ) && (hours > 6 && hours < 20) ){ 
+     } else if( ( weatherID >= 801 && weatherID <= 804 ) && (hours >= 6 && hours < 20) ){ 
           
           // cloudy day
-          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[7]}`)
+          $(id).attr('src', `imgs/static-weather/${weatherIcons[7]}`)
 
      } else if( ( weatherID >= 801 && weatherID <= 804 ) && (hours < 6 || hours >= 20)){ 
           
           // cloudy night
-          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[8]}`)
+          $(id).attr('src', `imgs/static-weather/${weatherIcons[8]}`)
 
      } else {
           // alert svg  == error
-          $('#weather-icon').attr('src', `imgs/static-weather/${weatherIcons[4]}`)
+          $(id).attr('src', `imgs/static-weather/${weatherIcons[4]}`)
      }
 
 
@@ -139,11 +139,54 @@ const getFiveDayWeather = (location) => {
      }).then(
           (data) => {
                console.log(data);
+               let idNum = 0;
+               for(const forecast of data.list){
+                    
+                    const dateTime = forecast.dt_txt.slice(5, 16);
+                    const mainTemp = forecast.main.temp;
+                    const feelsLike = forecast.main.feels_like;
+                    const humidity = forecast.main.humidity;
+                    const weatherID = forecast.weather[0].id;
+                    const description = forecast.weather[0].description;
+                    const mainDescription = forecast.weather[0].main;
+                    const hour = parseInt(forecast.dt_txt.slice(11,13));
 
-               //Update weather icon depending on the weather id and icon set
+                    const $weathInfoContainDiv = $('<div>').addClass('weather-info-container');
+                    const $currWeathIconDiv = $('<div>').addClass('current-weather-icon');
+                    const $descBoxLeft = $('<div>').addClass('desc-box-left');
+                    const $descBoxRight = $('<div>').addClass('desc-box-right');
+                    const $dateTimeH3 = $('<h3>').text(dateTime);
+                    const $descP = $('<p>').text(`${mainDescription} - ${description}`);
+                    const $humidityP = $('<p>').text(`${humidity}%`);
+                    const $weathIcon = $('<img>').attr('id', `num${idNum}`);
+                    
+                    $weathIcon.addClass('five-day-icon');
+                    
+                    const $tempP = $('<p>').html("Temperature: " + ((mainTemp - 273.15) * 9 /5 + 32).toFixed(0) + " &#176;F");
+                    const $feelsLikeP = $('<p>').html("Feels Like: " + ((feelsLike - 273.15) * 9 /5 + 32).toFixed(0) + " &#176;F");
 
-               // $('#current-weather').text(data.current.weather[0].description + " ");
-               // $('#temp').html(((data.current.temp - 275.13) * 9 /5 + 32).toFixed(0) + " &#176;F");
+                    
+                    $('.content-container').append($weathInfoContainDiv);
+                    $weathInfoContainDiv.append($currWeathIconDiv);
+                    $currWeathIconDiv.append($weathIcon);
+                    
+                    setWeatherIcon(weatherID, hour, `#num${idNum}`)
+                    idNum++;
+                    
+                    $weathInfoContainDiv.append($descBoxLeft);
+                    $descBoxLeft.append($dateTimeH3);
+                    $descBoxLeft.append($descP);
+                    $descBoxLeft.append($humidityP);
+                    
+                    $weathInfoContainDiv.append($descBoxRight)
+                    $descBoxRight.append($tempP);
+                    $descBoxRight.append($feelsLikeP);
+                    
+
+
+               }
+
+               
           },
           () => {
                console.log('bad request');
@@ -168,7 +211,7 @@ const getCurrentWeather = (cityName) => {
                
 
                //set weather icon according to ID
-               setWeatherIcon(weatherID, hours);
+               setWeatherIcon(weatherID, hours, '#weather-icon');
                
           },
           () => {
@@ -279,7 +322,6 @@ $(() => {
           city !== "" ? getCurrentWeather(city) : getCurrentWeather("New York");           // gets weather data for city from input text box
           
           city !== "" ? apiCalls[1](city) : apiCalls[1]("US"); 
-          
           
      })
 
