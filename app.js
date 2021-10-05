@@ -156,8 +156,8 @@ const getFiveDayWeather = (location) => {
                     const $descBoxLeft = $('<div>').addClass('desc-box-left');
                     const $descBoxRight = $('<div>').addClass('desc-box-right');
                     const $dateTimeH3 = $('<h3>').text(dateTime);
-                    const $descP = $('<p>').text(`${mainDescription} - ${description}`);
-                    const $humidityP = $('<p>').text(`${humidity}%`);
+                    const $descP = $('<p>').text(`${mainDescription}`);
+                    const $humidityP = $('<p>').text(`Humidity: ${humidity}%`);
                     const $weathIcon = $('<img>').attr('id', `num${idNum}`);
                     
                     $weathIcon.addClass('five-day-icon');
@@ -236,9 +236,10 @@ const getCurrentWeather = (cityName) => {
 const tickers = ["GOOG", "AAPL", "AMZN", "TSLA"]
 const getStonks = () => {
      $('.content-container').empty();
-     const dataArr = [];
      
      for(const ticker of tickers){
+          const dataArr = [];
+
           $.ajax({
                url: `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${avApiKey}`
           }).then(
@@ -343,6 +344,8 @@ $(() => {
                // make jiggle animation that symbolizes the end of the carousel
           }
      })
+
+
 
      //////////// DESKTOP BUTTONS ///////////////
 

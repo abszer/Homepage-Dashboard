@@ -130,7 +130,7 @@ header p {
 
  .weather-info-container {
      display: flex;
-     justify-content: space-between;
+     justify-content: flex-start;
      border-bottom: 1px solid rgb(214, 214, 214);
      padding: 2% 0;
      
@@ -154,7 +154,8 @@ header p {
      display: flex;
      flex-direction: column;
      justify-content: center;
-     margin-left: -5%;
+     margin-left: 0%;
+     margin-right: 15%;
 }
 
 .desc-box-left h3 {
@@ -166,20 +167,20 @@ header p {
     display: inline-block;
     font-family: 'Manrope', sans-serif;
     font-size: .85em;
-    margin: 5px 0;
+    
 
 }
 
 .desc-box-right {
     display: flex;
     flex-direction: column;
-    margin-right: 7%;
+    margin-left: 20%;
+    margin-right: 0;
 }
 
 .desc-box-right p {
     font-family: 'Manrope', sans-serif;
     font-size: .85em;
-    margin-bottom: 0;
 }
 
 
@@ -425,7 +426,7 @@ footer {
 
      .weather-info-container {
            display: flex;
-           justify-content: space-between;
+           justify-content: flex-start;
            border-bottom: 1px solid rgb(214, 214, 214);
            padding: 2% 0;
            
@@ -449,7 +450,7 @@ footer {
            display: flex;
            flex-direction: column;
            justify-content: center;
-           margin-left: -5%;
+           margin-left: 0%;
      }
 
      .desc-box-left h3 {
@@ -461,20 +462,19 @@ footer {
           display: inline-block;
           font-family: 'Manrope', sans-serif;
           font-size: .85em;
-          margin: 5px 0;
 
      }
 
      .desc-box-right {
           display: flex;
           flex-direction: column;
-          margin-right: 7%;
+          margin-left: 10%;
+          margin-right: 0;
      }
 
      .desc-box-right p {
           font-family: 'Manrope', sans-serif;
           font-size: .85em;
-          margin-bottom: 0;
      }
 
 
@@ -578,6 +578,14 @@ footer {
      .arrows:hover {
           cursor: pointer;
           filter: invert(73%) sepia(80%) saturate(1179%) hue-rotate(181deg) brightness(70%) contrast(94%);
+     }
+
+     #left-arrow-desktop {
+          display: none;
+     }
+
+     #right-arrow-desktop {
+          display: none;
      }
 
      .modal {
