@@ -147,7 +147,7 @@ const getFiveDayWeather = (location) => {
                     const feelsLike = forecast.main.feels_like;
                     const humidity = forecast.main.humidity;
                     const weatherID = forecast.weather[0].id;
-                    const description = forecast.weather[0].description;
+                    // const description = forecast.weather[0].description;
                     const mainDescription = forecast.weather[0].main;
                     const hour = parseInt(forecast.dt_txt.slice(11,13));
 
@@ -304,18 +304,18 @@ $(() => {
      if('name' in localStorage && 'city' in localStorage){
 
           $('.modal').css('display', 'none');
-          let city = localStorage.getItem('city');
-          let name = localStorage.getItem('name');
+          city = localStorage.getItem('city');
+          firstname = localStorage.getItem('name');
 
-          setGreeting(name);              // sets top welcome message
+          setGreeting(firstname);              // sets top welcome message
           city !== "" ? getCurrentWeather(city) : getCurrentWeather("New York");           // gets weather data for city from input text box
           city !== "" ? apiCalls[1](city) : apiCalls[1]("US");
 
      } else {
 
           $('#modal-submit').on('click', () => {
-               let firstname = $('#name-textbox').val();         
-               let city = $('#city-textbox').val();
+               firstname = $('#name-textbox').val();         
+               city = $('#city-textbox').val();
                $('.modal').css('display', 'none');
      
                localStorage.setItem('name', firstname);
@@ -335,7 +335,7 @@ $(() => {
      $('#right-arrow').on('click', () => {
           if(currCarouselPage + 1 < apiCalls.length){
                currCarouselPage++
-               apiCalls[currCarouselPage]("");
+               apiCalls[currCarouselPage]();
           }else{
                // make jiggle animation that symbolizes the end of the carousel
           }
@@ -357,7 +357,7 @@ $(() => {
      $('#right-arrow-desktop').on('click', () => {
           if(currCarouselPage + 1 < apiCalls.length){
                currCarouselPage++
-               apiCalls[currCarouselPage]("");
+               apiCalls[currCarouselPage]();
           }else{
                // make jiggle animation that symbolizes the end of the carousel
           }
