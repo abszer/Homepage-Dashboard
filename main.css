@@ -84,11 +84,18 @@ header p {
      flex-grow: 1;
 }
 
+.desktop-container {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
 .content-container {
      display: flex;
      flex-direction: column;     
 
-     margin: 5px auto 0px auto;
+     margin-top: 5px;
+     margin-bottom: 0px;
      width: 100vh;
      height: 81vh;
      background-color: #f6f6f6;
@@ -100,6 +107,23 @@ header p {
 .content-container::-webkit-scrollbar {
      display: none; 
  }
+
+ .arrows {
+     transition: all 0.2s;
+     filter: invert(73%) sepia(80%) saturate(1179%) hue-rotate(181deg) brightness(101%) contrast(94%);
+     height: 100%;
+     width: 5vw;
+     margin: 0 15px;
+     
+
+}
+
+.arrows:hover {
+     transition: all 0.2s;
+     cursor: pointer;
+     filter: invert(73%) sepia(80%) saturate(1179%) hue-rotate(181deg) brightness(70%) contrast(94%);
+}
+
 
 
  /* --------- five day forecast page -------- */
@@ -233,7 +257,7 @@ header p {
 
 /*---------- stock info page ----------*/
 
-.modal {
+.modal {    
      position: fixed;         /*lines 71-73 make the modal take up the whole page */
      top: 0;
      left: 0;
@@ -289,25 +313,8 @@ header p {
 
 footer {
      display: none;
-     justify-content: space-between;
-     background-color: rgb(66, 66, 66);
-     height: 50px;
-     border-bottom-left-radius: 9px;
-     border-bottom-right-radius: 9px;
 }
 
-.arrows {
-     filter: invert(73%) sepia(80%) saturate(1179%) hue-rotate(181deg) brightness(101%) contrast(94%);
-     height: 100%;
-     width: 7vw;
-     margin: 0 15px;
-
-}
-
-.arrows:hover {
-     cursor: pointer;
-     filter: invert(73%) sepia(80%) saturate(1179%) hue-rotate(181deg) brightness(70%) contrast(94%);
-}
 
 
 /* ---------------------------end desktop design---------------------------- */

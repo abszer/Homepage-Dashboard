@@ -344,5 +344,25 @@ $(() => {
           }
      })
 
+     //////////// DESKTOP BUTTONS ///////////////
+
+     $('#right-arrow-desktop').on('click', () => {
+          if(currCarouselPage + 1 < apiCalls.length){
+               currCarouselPage++
+               apiCalls[currCarouselPage]("");
+          }else{
+               // make jiggle animation that symbolizes the end of the carousel
+          }
+     })
+
+     $('#left-arrow-desktop').on('click', () => {
+          if(currCarouselPage - 1 > -1){
+               currCarouselPage--
+               apiCalls[currCarouselPage](city);
+          }else{
+               // make jiggle animation that symbolizes the end of the carousel
+          }
+     })
+
 
 })
