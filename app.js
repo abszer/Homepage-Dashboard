@@ -1,7 +1,7 @@
 const gnewsApiKey = '1125705369e213547a96e9ccb952b48b';
 const oWeathApiKey = '7c492c22cc3454f7043ae06d28366107';
 const avApiKey = "UCYV9F7X96A1UXRT";
-// const giphyApiKey = '2MBKmGpnmFqQmKOJBE7Pn3pPSqGwaKla';
+
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',]
 const weatherIcons = ['thunder.svg', 'rainy-4.svg', 'rainy-7.svg', 'snowy-6.svg', 'alert.svg', 'day.svg', 'night.svg', 'cloudy-day-2.svg', 'cloudy-night-2.svg' ]
@@ -220,19 +220,7 @@ const getCurrentWeather = (cityName) => {
      )
 }
 
-// const getGiphy = () => {
-//      $.ajax({
-//           url: `http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=${giphyApiKey}&limit=5` // note the plus needed to join spaced words
-//      }).then(
-//           (data) => {
-//                console.log('current weather data: ');
-//                console.log(data);
-//           },
-//           () => {
-//                console.log('bad request');
-//           }
-//      )
-// }
+
 const tickers = ["GOOG", "AAPL", "AMZN", "TSLA"]
 const getStonks = () => {
      $('.content-container').empty();
@@ -312,20 +300,37 @@ $(() => {
       
      $('#date').text(date)
      
-     // getWeather(); apiCalls[1]
-     // getGiphy();
 
-     $('#modal-submit').on('click', () => {
-          firstname = $('#name-textbox').val();          //implement localstorage here
-          city = $('#city-textbox').val();
+     if('name' in localStorage && 'city' in localStorage){
+
           $('.modal').css('display', 'none');
+          let city = localStorage.getItem('city');
+          let name = localStorage.getItem('name');
 
-          setGreeting(firstname);              // sets top welcome message
+          setGreeting(name);              // sets top welcome message
           city !== "" ? getCurrentWeather(city) : getCurrentWeather("New York");           // gets weather data for city from input text box
-          
-          city !== "" ? apiCalls[1](city) : apiCalls[1]("US"); 
-          
-     })
+          city !== "" ? apiCalls[1](city) : apiCalls[1]("US");
+
+     } else {
+
+          $('#modal-submit').on('click', () => {
+               let firstname = $('#name-textbox').val();         
+               let city = $('#city-textbox').val();
+               $('.modal').css('display', 'none');
+     
+               localStorage.setItem('name', firstname);
+               localStorage.setItem('city', city);
+
+               console.log(localStorage);
+     
+               setGreeting(firstname);              // sets top welcome message
+               city !== "" ? getCurrentWeather(city) : getCurrentWeather("New York");           // gets weather data for city from input text box
+               
+               city !== "" ? apiCalls[1](city) : apiCalls[1]("US"); 
+               
+          })
+     }
+     
 
      $('#right-arrow').on('click', () => {
           if(currCarouselPage + 1 < apiCalls.length){
