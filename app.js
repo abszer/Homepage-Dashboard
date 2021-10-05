@@ -330,6 +330,10 @@ $(() => {
                
           })
      }
+
+     $('#greeting').on('click', () => {
+          localStorage.clear();
+     })
      
 
      $('#right-arrow').on('click', () => {
