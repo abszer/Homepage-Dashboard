@@ -90,7 +90,7 @@ header p {
 
      margin: 5px auto 0px auto;
      width: 100vh;
-     height: 100vh;
+     height: 81vh;
      background-color: #f6f6f6;
      border-top-right-radius: 7px;
      border-top-left-radius: 7px;
@@ -100,6 +100,66 @@ header p {
 .content-container::-webkit-scrollbar {
      display: none; 
  }
+
+
+ /* --------- five day forecast page -------- */
+
+ .weather-info-container {
+     display: flex;
+     justify-content: space-between;
+     border-bottom: 1px solid rgb(214, 214, 214);
+     padding: 2% 0;
+     
+}
+
+.current-weather-icon {
+     display: flex; 
+     justify-content: center;
+     align-items: center;
+     margin: 0 5%;
+     padding-right: 5%;
+     border-right: 1px solid rgb(214, 214, 214);
+}
+
+.five-day-icon {
+    height: 64px;
+    width: 64px;
+}
+
+.desc-box-left {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     margin-left: -5%;
+}
+
+.desc-box-left h3 {
+    font-family: 'Manrope', sans-serif;
+    margin: 0;
+}
+
+.desc-box-left p {
+    display: inline-block;
+    font-family: 'Manrope', sans-serif;
+    font-size: .85em;
+    margin: 5px 0;
+
+}
+
+.desc-box-right {
+    display: flex;
+    flex-direction: column;
+    margin-right: 7%;
+}
+
+.desc-box-right p {
+    font-family: 'Manrope', sans-serif;
+    font-size: .85em;
+    margin-bottom: 0;
+}
+
+
+/*---------- news info page ----------*/
 
 .news-content {           /* rename to ".content show" */
      display: flex;
@@ -143,6 +203,36 @@ header p {
      margin: 0;
 }
 
+/*---------- stock info page ----------*/
+
+.stock-info-container {
+     display: flex;
+     padding: 2% 0;
+     border-bottom: 1px solid rgb(214, 214, 214);
+}
+
+.ticker {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 33%;
+
+     font-family: Arial, Helvetica, sans-serif;
+}
+
+.stock-info {
+     padding-left: 5%;
+     border-left: 1px solid rgb(214, 214, 214);
+
+     font-family: Arial, Helvetica, sans-serif;
+}
+
+.stock-info h5 {
+     margin: 10% 0;
+}
+
+/*---------- stock info page ----------*/
+
 .modal {
      position: fixed;         /*lines 71-73 make the modal take up the whole page */
      top: 0;
@@ -162,9 +252,6 @@ header p {
 
 }
 
-/* .modal-content h2{
-     margin-bottom: 0px;
-} */
 
 .modal-content h4{
      font-family: 'Manrope', sans-serif;

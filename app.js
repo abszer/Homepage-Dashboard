@@ -237,6 +237,7 @@ const tickers = ["GOOG", "AAPL", "AMZN", "TSLA"]
 const getStonks = () => {
      $('.content-container').empty();
      const dataArr = [];
+     
      for(const ticker of tickers){
           $.ajax({
                url: `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${avApiKey}`
