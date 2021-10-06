@@ -97,15 +97,41 @@ header p {
      margin-top: 5px;
      margin-bottom: 0px;
      width: 100vh;
-     height: 81vh;
+     height: 80vh;
      background-color: #f6f6f6;
-     border-top-right-radius: 7px;
-     border-top-left-radius: 7px;
+     border-radius: 7px;
      overflow-y: auto;
 }
 
 .content-container::-webkit-scrollbar {
      display: none; 
+ }
+
+ .shake {
+      animation-name: shake-ani;
+      animation-timing-function: ease-in-out;
+      animation-duration: .2s;
+      animation-iteration-count: 1;
+
+ }
+
+ @keyframes shake-ani {
+      0% {
+           transform: translateX(3px);
+      } 
+
+      33% {
+           transform: translateX(-6px)
+      }
+
+      66% {
+           transform: translateX(6px)
+      }
+
+      100% {
+           transform: translateX(-3px)
+      }
+
  }
 
  .arrows {

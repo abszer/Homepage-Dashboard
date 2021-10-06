@@ -222,7 +222,9 @@ const getCurrentWeather = (cityName) => {
 
 
 const tickers = ["GOOG", "AAPL", "AMZN", "TSLA"]
-const getStonks = () => {
+const getStonks = (discard) => {
+     let nonsenseVar = discard;
+
      $('.content-container').empty();
      
      for(const ticker of tickers){
@@ -339,10 +341,17 @@ $(() => {
      $('#right-arrow').on('click', () => {
           if(currCarouselPage + 1 < apiCalls.length){
                currCarouselPage++
-               apiCalls[currCarouselPage]();
+               apiCalls[currCarouselPage](city);
           }else{
-               // make jiggle animation that symbolizes the end of the carousel
+
+               $('.content-container').removeClass('shake');
+               setTimeout(() => {
+
+                    $('.content-container').addClass('shake');
+
+               }, 10)
           }
+          
      })
 
      $('#left-arrow').on('click', () => {
@@ -350,7 +359,14 @@ $(() => {
                currCarouselPage--
                apiCalls[currCarouselPage](city);
           }else{
-               // make jiggle animation that symbolizes the end of the carousel
+               //jiggle animation that symbolizes the end of the carousel
+               $('.content-container').removeClass('shake');
+               setTimeout(() => {
+
+                    $('.content-container').addClass('shake');
+
+               }, 10)
+
           }
      })
 
@@ -363,7 +379,14 @@ $(() => {
                currCarouselPage++
                apiCalls[currCarouselPage]();
           }else{
-               // make jiggle animation that symbolizes the end of the carousel
+
+               //jiggle animation that symbolizes the end of the carousel
+               $('.content-container').removeClass('shake');
+               setTimeout(() => {
+
+                    $('.content-container').addClass('shake');
+
+               }, 10)
           }
      })
 
@@ -372,7 +395,13 @@ $(() => {
                currCarouselPage--
                apiCalls[currCarouselPage](city);
           }else{
-               // make jiggle animation that symbolizes the end of the carousel
+               
+               $('.content-container').removeClass('shake');
+               setTimeout(() => {
+
+                    $('.content-container').addClass('shake');
+
+               }, 10)
           }
      })
 
