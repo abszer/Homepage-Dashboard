@@ -25,7 +25,7 @@ This project was broken up into three sections:
 - Implementing basic API functionality and data to DOM
 - Styling the app and fixing bugs
 
-For the majority of the development of this app, everything went smoothly and according to plan. However, one of the trickiest portions of this app was creating a way for the 'get' functions to not only call the APIs but to post the data returned inside of the AJAX function reapetedly. This approach was not ideal, but I was not able to develop a way to separate the 'get' and 'set' functions due to the asynchronous nature of obtaining the API data. In future versions, I would like to utilize **sessionStorage** to limit the number of times I make a calls to any of the APIs. 
+For the majority of the development of this app, everything went smoothly and according to plan. However, one of the trickiest portions of this app was creating a way for the 'get' functions to not only call the APIs but to post the data returned inside of the AJAX function reapetedly. The solution I developed is not ideal, but I was not able to create a way to separate the 'get' and 'set' functions due to the asynchronous nature of obtaining the API data. In future versions, I would like to utilize **sessionStorage** to limit the number of times I make a calls to any of the APIs. 
 
 
 
