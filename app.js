@@ -11,6 +11,10 @@ let city = "";
 let d = new Date();
 let date = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}`;
 
+
+///////////////////////////////////// Functions that request data from the APIs as well as append the data received to the DOM /////////////////////////////////////////
+
+// get data from gnews api
 const getGnews = (city, articles="10") => {
      $.ajax({
           url: `https://gnews.io/api/v4/search?q=${city}&max=${articles}&lang=en&token=${gnewsApiKey}`
@@ -27,15 +31,15 @@ const getGnews = (city, articles="10") => {
                               const url = data.articles[i].url;
                               const image = data.articles[i].image;
 
-                              const $newsContentDiv = $('<div>').addClass('news-content');
+                              const $newsContentDiv = $('<div>').addClass('news-content');               // Create elements to append to .content-container div
                               const $newsInfoDiv = $('<div>').addClass('news-info-container');
                               const $title = $('<h4>').text(title);
-                              const $desc = $('<p>').text(description);
+                              const $desc = $('<p>').text(description);                
                               const $topA = $('<a>').attr('href', url);
                               const $botA = $('<a>').attr('href', url);
                               const $img = $('<img>').attr('src', image);
 
-                              $('.content-container').append($newsContentDiv);
+                              $('.content-container').append($newsContentDiv);                        // Append the elements created above
                               $newsContentDiv.append($topA);
                               $newsContentDiv.append($botA);
                               $topA.append($img);
@@ -59,8 +63,8 @@ const getGnews = (city, articles="10") => {
      );
 }
 
-
-const getRandomFact = () => {
+// get a random fact from the random fact api
+const getRandomFact = () => {                               
      $.ajax({
           url: `https://asli-fun-fact-api.herokuapp.com/`
      }).then(
@@ -73,6 +77,8 @@ const getRandomFact = () => {
      )
 }
 
+
+// sets the weather icons in the header and on the five day forecast page depending on the weatherID returned from the open weather api as well as the current hour
 const setWeatherIcon = (weatherID, hours, id) => {
      
 
@@ -130,7 +136,7 @@ const setWeatherIcon = (weatherID, hours, id) => {
      
 }
 
-// for 5 day forecast
+// requests data from openweater 5 day forecast
 const getFiveDayWeather = (location) => {
      $('.content-container').empty();
 
@@ -142,7 +148,7 @@ const getFiveDayWeather = (location) => {
                let idNum = 0;
                for(const forecast of data.list){
                     
-                    const dateTime = forecast.dt_txt.slice(5, 16);
+                    const dateTime = forecast.dt_txt.slice(5, 16);                          // parse data from the JSON object
                     const mainTemp = forecast.main.temp;
                     const feelsLike = forecast.main.feels_like;
                     const humidity = forecast.main.humidity;
@@ -151,7 +157,7 @@ const getFiveDayWeather = (location) => {
                     const mainDescription = forecast.weather[0].main;
                     const hour = parseInt(forecast.dt_txt.slice(11,13));
 
-                    const $weathInfoContainDiv = $('<div>').addClass('weather-info-container');
+                    const $weathInfoContainDiv = $('<div>').addClass('weather-info-container');  // create elements to append to the content-container div
                     const $currWeathIconDiv = $('<div>').addClass('current-weather-icon');
                     const $descBoxLeft = $('<div>').addClass('desc-box-left');
                     const $descBoxRight = $('<div>').addClass('desc-box-right');
@@ -166,12 +172,12 @@ const getFiveDayWeather = (location) => {
                     const $feelsLikeP = $('<p>').html("Feels Like: " + ((feelsLike - 273.15) * 9 /5 + 32).toFixed(0) + " &#176;F");
 
                     
-                    $('.content-container').append($weathInfoContainDiv);
+                    $('.content-container').append($weathInfoContainDiv);                      // append elements to the content container div
                     $weathInfoContainDiv.append($currWeathIconDiv);
                     $currWeathIconDiv.append($weathIcon);
                     
                     setWeatherIcon(weatherID, hour, `#num${idNum}`)
-                    idNum++;
+                    idNum++;   // increases the number appended to the end of each weathIcon element so that each element has a unique ID that can be passed into the setWeatherIcon function
                     
                     $weathInfoContainDiv.append($descBoxLeft);
                     $descBoxLeft.append($dateTimeH3);
@@ -194,8 +200,9 @@ const getFiveDayWeather = (location) => {
      )
 }
 
-// for header data
+// utilizes a different endpoint for the open weather api to set the icon and weather info in the header
 const getCurrentWeather = (cityName) => {
+
      $.ajax({
           url: `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${oWeathApiKey}`
      }).then(
@@ -207,7 +214,7 @@ const getCurrentWeather = (cityName) => {
                const weatherID = data.weather[0].id;
 
                // update temp in header
-               $('#temp').html(((data.main.temp - 273.15) * 9 /5 + 32).toFixed(0) + " &#176;F"); 
+               $('#temp').html(((data.main.temp - 273.15) * 9 /5 + 32).toFixed(0) + " &#176;F"); // converts the temp returned from Kelvin to fahrenheit 
                
 
                //set weather icon according to ID
@@ -221,9 +228,10 @@ const getCurrentWeather = (cityName) => {
 }
 
 
-const tickers = ["GOOG", "AAPL", "AMZN", "TSLA"]
+const tickers = ["GOOG", "AAPL", "AMZN", "TSLA"] // hardcoded stock to pass into the getStonks function
+
 const getStonks = (discard) => {
-     let nonsenseVar = discard;
+     let nonsenseVar = discard; // hacky way of making sure that no errors are thrown by passing in 'city' data to all functions by creating a nonsense parameter that accepts the city data and stores it into a nonsense var
 
      $('.content-container').empty();
      
@@ -243,7 +251,7 @@ const getStonks = (discard) => {
                     dataArr.push(data['Time Series (Daily)'][dateKeys[0]]["3. low"])
                     dataArr.push(data['Time Series (Daily)'][dateKeys[0]]["2. high"])
                     
-                    const $stockInfoContainer = $('<div>').addClass('stock-info-container');
+                    const $stockInfoContainer = $('<div>').addClass('stock-info-container');                      // create elements that will be appended to the content container div
                     const $tickerDiv = $('<div>').addClass('ticker');
                     const $stockInfoDiv = $('<div>').addClass('stock-info');
                     const $tickerSymbol = $('<h3>').attr('id', 'symbol').text(ticker)
@@ -251,7 +259,7 @@ const getStonks = (discard) => {
                     const $stockOpen = $('<h5>').attr('id', 'stock-open').text( `Today's Open: ${dataArr[1]}`)
                     const $lowHigh = $('<h5>').attr('id', 'low-high').text(`Low: ${dataArr[2]} High: ${dataArr[3]}`);
      
-                    $('.content-container').append($stockInfoContainer);
+                    $('.content-container').append($stockInfoContainer);          // append the elements created to the content container div
                     $stockInfoContainer.append($tickerDiv);
                     $tickerDiv.append($tickerSymbol);
                     $stockInfoContainer.append($stockInfoDiv);
@@ -259,7 +267,7 @@ const getStonks = (discard) => {
                     $stockInfoDiv.append($stockOpen);
                     $stockInfoDiv.append($lowHigh);
      
-                    if(dataArr[0] < dataArr[1]){
+                    if(dataArr[0] < dataArr[1]){                          // if yesterday close is less than today open then green ticker symbol otherwise, red symbol
                          $tickerSymbol.css('color', 'green');
                     }else{
                          $tickerSymbol.css('color', 'red');
@@ -283,7 +291,7 @@ const setGreeting = (name) => {
      let n = new Date();
      let hour = n.getHours();
 
-     if(hour < 12){
+     if(hour < 12){      // hour is 0-23 
           $('#greeting').text(`Good morning, ${name}!`);
      } else {
           $('#greeting').text(`Good afternoon, ${name}!`);
@@ -338,6 +346,8 @@ $(() => {
      })
      
 
+
+     ///////////////// MOBILE BUTTONS ///////////////////////
      $('#right-arrow').on('click', () => {
           if(currCarouselPage + 1 < apiCalls.length){
                currCarouselPage++
