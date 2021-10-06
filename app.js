@@ -377,7 +377,7 @@ $(() => {
      $('#right-arrow-desktop').on('click', () => {
           if(currCarouselPage + 1 < apiCalls.length){
                currCarouselPage++
-               apiCalls[currCarouselPage]();
+               apiCalls[currCarouselPage](city);
           }else{
 
                //jiggle animation that symbolizes the end of the carousel
