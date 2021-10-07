@@ -1,4 +1,7 @@
 # Homepage Dashboard
+
+![alt text](https://github.com/abszer/Homepage-Dashboard/blob/main/Screen%20Shot%202021-10-07%20at%207.26.50%20AM.pngraw=true)
+
 ### Purpose
 
 
